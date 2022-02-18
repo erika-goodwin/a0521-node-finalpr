@@ -6,6 +6,7 @@ import { AiFillEdit } from "react-icons/ai";
 
 interface TableCompoProps {
   data: any;
+  handleDelete: Function;
 }
 
 const ExpenseTableContainer = styled.div`
@@ -13,16 +14,8 @@ const ExpenseTableContainer = styled.div`
   margin-bottom: 0.7rem;
 `;
 
-const TableCompo = ({ data }: TableCompoProps) => {
-  const handleDelete = () => {
-    const clickedId = data._id;
-    console.log("handleDelete clicked/ id: ", clickedId);
-    fetch(`http://localhost:8001/api/table/${data._id}`, { method: "DELETE" })
-      .then()
-      .catch((err: any) => console.log(err));
-
-      
-  };
+const TableCompo = ({ data, handleDelete }: TableCompoProps) => {
+  
   return (
     <>
       <ExpenseTableContainer>
@@ -37,7 +30,7 @@ const TableCompo = ({ data }: TableCompoProps) => {
           </Col>
           <Col xs={1}>
             <Button variant="light">
-              <RiDeleteBinFill onClick={() => handleDelete()} />
+              <RiDeleteBinFill onClick={() => handleDelete(data._id)} />
             </Button>
           </Col>
         </Row>

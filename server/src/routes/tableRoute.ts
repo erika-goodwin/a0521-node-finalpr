@@ -28,7 +28,7 @@ router.post("/add", async (req, res) => {
     detail,
     price,
   });
-  res.redirect("/");
+  // res.redirect("/"); dont redirect, leave it to front end to handle redirects
 
   res.json({
     errors: [],
@@ -65,10 +65,11 @@ router.delete("/:id", async (req, res) => {
       console.log(err);
     } else {
       console.log("Deleted User : ", docs);
+      // res.redirect("/");
+      res.status(200).json({errors: [], docs})
     }
   });
 
-  res.redirect("/");
 });
 
 module.exports = router;

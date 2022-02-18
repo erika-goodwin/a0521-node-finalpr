@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, ReactNode } from "react";
 import styled from "styled-components";
 import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ const ExpenseTableContainer = styled.div`
   margin-bottom: 0.7rem;
 `;
 
-const TableForm = () => {
+const TableForm = ({setTableData}: any) => {
   const [date, setDate] = useState("");
   const [detail, setDetail] = useState("");
   const [price, setPrice] = useState("");
@@ -18,7 +18,6 @@ const TableForm = () => {
   const formRef = useRef();
 
   const handleClick = async () => {
-    console.log("handleclicked");
     const { data: tableData } = await axios.post(
       "http://localhost:8001/api/table/add",
       {
@@ -34,6 +33,8 @@ const TableForm = () => {
       return setErrorMsg(response.errors[0].msg);
     }
     // formRef.current.submit();
+
+    setTableData((prev: []) => [...prev, tableData.data.table])
   };
   return (
     <>
